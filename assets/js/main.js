@@ -66,13 +66,13 @@ const slides = [
   nextElement.addEventListener('click', function () {
     console.log('Ho cliccato su next');
     
-    const currentImg = document.querySelectorAll('img');
+    let currentImg = document.querySelector('.img-fluid');
     currentImg.classList.remove('active');
     currentImg++;
-    const nextImg = currentImg[activeImg]
+    let nextImg = currentImg[activeImg]
     nextImg.classList.add('active')
 
-    const currentTitle = document.querySelectorAll('h1');
+    let currentTitle = document.querySelectorAll('h1');
     currentTitle.classList.remove('active');
     currentTitle++;
     const nextTitle = currentTitle[activeTitle]
