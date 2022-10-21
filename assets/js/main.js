@@ -35,27 +35,29 @@ const slides = [
   const slidesElement = document.querySelector('.slides'); //dove inserire le immagini .slides usando querySelector()
   const nextElement = document.querySelector('.next'); // la freccia next
   const prevElement = document.querySelector('.prev'); // la freccia prev
+  //console.log(slidesElement, nextElement, prevElement);
   
   
   
   // Seleziono l'indice dell'immagine, titolo e info che voglio attivare
-  let activeImg = 0;
-  let activeTitle = 0;
-  let activeInfo = 0;
-  
+  let activeSlides = 0;
   
   // inserisco le immagini
   for (let i = 0; i < slides.length; i++) {
     const slideUrl = slides[i];
     //console.log(slideUrl);
     const imgMarkup = `
-        <img class="img-fluid ${i === activeImg ? 'active' : ''}" src="${slideUrl.image}" alt= "">
-        <h1 class="${i === activeTitle ? 'active' : ''}">${slideUrl.title}</h1>
-        <p class="${i === activeInfo ? 'active' : ''}">${slideUrl.text}</p>`;
+    <img class="img-fluid ${i === activeSlides ? 'active' : ''}" src="${slideUrl.image}" alt= "">
+    <div class="info ${i === activeSlides ? 'active' : 'hidden'}">
+        <h1>${slideUrl.title}</h1>
+        <p>${slideUrl.text}</p>
+    </div>`;
                          
     //prendo l'elemento della dom dove inserire le imamgini le inserisco
     slidesElement.insertAdjacentHTML('beforeend', imgMarkup);
+    //console.log(slidesElement);
   }
+
   
   /* 
   Al click dell 'utente sulle frecce, il programma cambierà l’immagine attiva
@@ -63,25 +65,23 @@ const slides = [
   
   
   // aggiungo event listener sulla freccia del next
-  nextElement.addEventListener('click', function () {
+nextElement.addEventListener('click', function () {
     console.log('Ho cliccato su next');
-    
-    let currentImg = document.querySelector('.img-fluid');
+    const currentImg = document.querySelector('img');
+    const currentinfo = document.querySelector('.info')
     currentImg.classList.remove('active');
-    currentImg++;
-    let nextImg = currentImg[activeImg]
-    nextImg.classList.add('active')
-
-    let currentTitle = document.querySelectorAll('h1');
-    currentTitle.classList.remove('active');
-    currentTitle++;
-    const nextTitle = currentTitle[activeTitle]
-    nextTitle.classList.add('active')
-  });
+    currentinfo.classList.remove('active')
+    activeSlides++
+    console.log(activeSlides);
+    const allImg = document.querySelector('.img-fluid')
+    const nextImgElement = allImg[activeSlides];
+    nextImgElement.classList.add('active')
+     
+});
   
   
-  // aggiungo event listener sulla freccia del prev
-  prevElement.addEventListener('click', function () {
-    console.log('Ho cliccato su prev');
+//   // aggiungo event listener sulla freccia del prev
+//   prevElement.addEventListener('click', function () {
+//     console.log('Ho cliccato su prev');
     
-  });
+//   });
