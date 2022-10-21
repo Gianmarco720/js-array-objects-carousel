@@ -38,73 +38,50 @@ const slides = [
   
   
   
-  // Seleziono l'indice dell'immagine che voglio attivare
-  let active = 0
+  // Seleziono l'indice dell'immagine, titolo e info che voglio attivare
+  let activeImg = 0;
+  let activeTitle = 0;
+  let activeInfo = 0;
   
   
-  
-  // inseriamo tutte le immagini dinamicamente servendoci dell 'array fornito
-  
+  // inserisco le immagini
   for (let i = 0; i < slides.length; i++) {
     const slideUrl = slides[i];
     //console.log(slideUrl);
     const imgMarkup = `
-        <img class="img-fluid ${i === active ? 'active' : ''}" src="${slideUrl.image}" alt= "">
-        <h1 class="${i === active ? 'active' : ''}">${slideUrl.title}</h1>
-        <p class="${i === active ? 'active' : ''}">${slideUrl.text}</p>`;
+        <img class="img-fluid ${i === activeImg ? 'active' : ''}" src="${slideUrl.image}" alt= "">
+        <h1 class="${i === activeTitle ? 'active' : ''}">${slideUrl.title}</h1>
+        <p class="${i === activeInfo ? 'active' : ''}">${slideUrl.text}</p>`;
                          
     //prendo l'elemento della dom dove inserire le imamgini le inserisco
     slidesElement.insertAdjacentHTML('beforeend', imgMarkup);
   }
   
   /* 
-  Al click dell 'utente sulle frecce, il programma cambierà l’immagine attiva, che quindi verrà visualizzata al posto della precedente.
+  Al click dell 'utente sulle frecce, il programma cambierà l’immagine attiva
   */
   
   
   // aggiungo event listener sulla freccia del next
   nextElement.addEventListener('click', function () {
     console.log('Ho cliccato su next');
-  
-    //cambierà l’immagine attiva
-    // selezionare dalla dom l'immagine attualmente attiva
-    const activeSlideElement = document.querySelector('.slides > img.active')
-    console.log(slides[active]);
-  
-    console.log(activeSlideElement);
-    // tolgo all'immagine la classe active
-    activeSlideElement.classList.remove('active');
-    //activeInfoElement.classList.remove('active');
     
-    // incremento active image di 1
-    active++ // activeImage = activeImage + 1
-    console.log(activeImage); // al primo click il valore da 0 diventa 1
-    // seleziono tutte le immagini
-    const allSlides = document.getElementsByClassName('img-fluid')
-    // sleziono l'immagine successiva
-    const nextSlideElement = allSlides[active];
-    // aggiungo alla slide successiva la class active
-    nextSlideElement.classList.add('active')
-  
+    const currentImg = document.querySelectorAll('img');
+    currentImg.classList.remove('active');
+    currentImg++;
+    const nextImg = currentImg[activeImg]
+    nextImg.classList.add('active')
+
+    const currentTitle = document.querySelectorAll('h1');
+    currentTitle.classList.remove('active');
+    currentTitle++;
+    const nextTitle = currentTitle[activeTitle]
+    nextTitle.classList.add('active')
   });
   
   
   // aggiungo event listener sulla freccia del prev
   prevElement.addEventListener('click', function () {
     console.log('Ho cliccato su prev');
-    //cambierà l’immagine attiva
-    // selezionare dalla dom l'immagine attualmente attiva
-    const activeSlideElement = document.querySelector('.slides > img.active')
-    console.log(activeSlideElement);
-    // tolgo all'immagine la classe active
-    activeSlideElement.classList.remove('active');
-    // incremento active image di 1
-    active-- // activeImage = activeImage + 1
-    console.log(active); // al primo click il valore da 0 diventa 1
-    // seleziono tutte le immagini
-    const allSlides = document.getElementsByClassName('img-fluid')
-    // sleziono l'immagine successiva
-    const nextSlideElement = allSlides[active];
-    // aggiungo alla slide successiva la class active
-    nextSlideElement.classList.add('active')
+    
   });
